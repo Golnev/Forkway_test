@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_USER: root
+      POSTGRES_DB: root
+    expose:
+      - "6000"
+    ports:
+      - "6000:6000"
+    command: -p 6000
+
+  db_test:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_USER: test
+      POSTGRES_DB: test
+    expose:
+      - "6060"
+    ports:
+      - "6060:6060"
+    command: -p 6060
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

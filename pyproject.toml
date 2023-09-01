@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "forkway test"
+version = "0.0.1"
+description = ""
+authors = ["Eugene Golnev <eugenegolnev1993@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[tool.poetry.group.dev.dependencies]
+fastapi = {extras = ["all"], version = "^0.103.0"}
+alembic = "^1.11.3"
+pytest = "^7.4.0"
+python-dotenv = "^1.0.0"
+sqlalchemy = "^2.0.20"
+uvicorn = "^0.23.2"
+faker = "^19.3.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

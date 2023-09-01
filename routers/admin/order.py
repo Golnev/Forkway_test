@@ -38,7 +38,7 @@ def update_order(id: int, request: admin.Order, db: Session = Depends(database.g
 
     order = db.query(models.Order).filter(models.Order.id == id)
     if not order.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Outlet with ID {id} is not found')
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Order with ID {id} is not found')
     order.update(request.model_dump())
     db.commit()
     return order.first()
@@ -48,7 +48,7 @@ def update_order(id: int, request: admin.Order, db: Session = Depends(database.g
 def delete_order(id: int, db: Session = Depends(database.get_db)):
     order = db.query(models.Order).filter(models.Order.id == id)
     if not order.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Outlet with ID {id} is not found')
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Order with ID {id} is not found')
     order.delete(synchronize_session=False)
     db.commit()
 

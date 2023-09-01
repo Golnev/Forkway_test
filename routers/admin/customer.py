@@ -38,7 +38,7 @@ def update_customer(id: int, request: admin.Customer, db: Session = Depends(data
 def delete_customer(id: int, db: Session = Depends(database.get_db)):
     customer = db.query(models.Customer).filter(models.Customer.id == id)
     if not customer.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Employee with ID {id} is not found')
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Customer with ID {id} is not found')
     customer.delete(synchronize_session=False)
     db.commit()
 
@@ -47,6 +47,6 @@ def delete_customer(id: int, db: Session = Depends(database.get_db)):
 def get_customer_by_outlet(outlet: str, db: Session = Depends(database.get_db)):
     customer = db.query(models.Customer).join(models.Outlet).filter(models.Outlet.name == outlet)
     if not customer.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Employee with outlet name {outlet} is '
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Customer with outlet name {outlet} is '
                                                                           f'not found')
     return customer.all()

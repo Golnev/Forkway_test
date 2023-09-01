@@ -29,7 +29,7 @@ def create_visit(request: admin.Visit, db: Session = Depends(database.get_db)):
 def update_visit(id: int, request: admin.Visit, db: Session = Depends(database.get_db)):
     visit = db.query(models.Visit).filter(models.Visit.id == id)
     if not visit.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Outlet with ID {id} is not found')
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Visit with ID {id} is not found')
     visit.update(request.model_dump())
     db.commit()
     return visit.first()
@@ -39,7 +39,7 @@ def update_visit(id: int, request: admin.Visit, db: Session = Depends(database.g
 def delete_visit(id: int, db: Session = Depends(database.get_db)):
     visit = db.query(models.Visit).filter(models.Visit.id == id)
     if not visit.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Outlet with ID {id} is not found')
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Visit with ID {id} is not found')
     visit.delete(synchronize_session=False)
     db.commit()
 
@@ -53,7 +53,7 @@ def get_visit_by_employee(employee: str, offset: int = 0, limit: int = 10, db: S
                  .offset(offset).limit(limit))
         if not visit.first():
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                                detail=f'Order with employee name {employee} is not found')
+                                detail=f'Visit with employee name {employee} is not found')
         return visit.all()
     return visit.all()
 
@@ -63,6 +63,6 @@ def get_visit_by_outlet(outlet: str, offset: int = 0, limit: int = 10, db: Sessi
     visit = (db.query(models.Visit).join(models.Outlet).filter(models.Outlet.name == outlet)
              .offset(offset).limit(limit))
     if not visit.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Employee with outlet name {outlet} is '
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Visit with outlet name {outlet} is '
                                                                           f'not found')
     return visit.all()

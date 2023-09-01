@@ -50,7 +50,7 @@ class Visit(Base):
     __tablename__ = 'visits'
 
     id = Column(Integer, primary_key=True)
-    created_at = Column(TIMESTAMP(timezone=True), server_default='now()')
+    created_at = Column(TIMESTAMP(timezone=True), default=func.now())
     performer_id = Column(Integer, ForeignKey('employees.id'))
     order_id = Column(Integer, ForeignKey('orders.id'), unique=True)
     author_id = Column(Integer, ForeignKey('customers.id'))

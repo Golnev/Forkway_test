@@ -1,6 +1,19 @@
 version: "3.8"
 services:
 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - db_test
+      - adminer
+    command: [ "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000" ]
+
   db:
     image: postgres
     restart: always
